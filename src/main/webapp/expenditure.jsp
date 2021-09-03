@@ -13,6 +13,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
     <link rel="stylesheet" href="/style.css">
+    <LINK REL="SHORTCUT ICON" HREF="/iconweb.ico">
 </head>
 <body>
 
@@ -103,7 +104,7 @@
 
     </div>
     <div class="row">
-        <div style="height: 65%; background-color: silver" class="col-8">
+        <div style=" background-color: silver" class="col-8">
             <table>
                 <tr>
                     <th>Danh mục</th>
@@ -127,7 +128,7 @@
             </table>
 
         </div>
-        <div style="height: 65%; background-color:darkkhaki" class="col-4">
+        <div style=" background-color:darkkhaki" class="col-4">
             <table>
                 <tr>
                     <th>Hạn mức</th>
@@ -152,14 +153,47 @@
             </table>
             <form id="editmonth" action="/expenditure?action=editmonth&id=${limited.id}" method="post"
                   style="display: none">
-                <input name="limitmonth" type="number" value="${limited.limitMonth}"><br>
-                <button class="close" type="submit">Ok</button>
+                <table>
+                    <tr>
+                        <td><input name="limitmonth" type="number" value="${limited.limitMonth}"></td>
+                        <td>
+                            <button class="close" type="submit">Ok</button>
+                        </td>
+                    </tr>
+                </table>
+
             </form>
             <form id="editday" action="/expenditure?action=editday&id=${limited.id}" method="post"
                   style="display: none">
-                <input name="limitday" type="number" value="${limited.limitDay}"><br>
-                <button class="close" type="submit">Ok</button>
+                <table>
+                    <tr>
+                        <td><input name="limitday" type="number" value="${limited.limitDay}"></td>
+                        <td>
+                            <button class="close" type="submit">Ok</button>
+                        </td>
+                    </tr>
+                </table>
             </form>
+            <script>
+                let close = document.getElementsByClassName('close')[0];
+                let openeditmonth = document.getElementById('openeditmonth');
+                let openeditday = document.getElementById('openeditday');
+                let editmonth = document.getElementById('editmonth');
+                let editday = document.getElementById('editday');
+
+                openeditday.onclick = function () {
+                    editday.style.display = "block";
+                    editmonth.style.display = "none";
+                }
+                openeditmonth.onclick = function () {
+                    editday.style.display = "none";
+                    editmonth.style.display = "block";
+                }
+                close.onclick = function () {
+                    editday.style.display = "none";
+                    editmonth.style.display = "none";
+                }
+            </script>
         </div>
     </div>
 

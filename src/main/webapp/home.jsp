@@ -9,6 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <LINK REL="SHORTCUT ICON"  HREF="/iconweb.ico">
     <style>
         .a {
             padding-right: 300px;

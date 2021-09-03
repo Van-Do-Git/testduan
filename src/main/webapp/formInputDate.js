@@ -5,19 +5,7 @@ let formmonth = document.getElementById('formmonth');
 let week = document.getElementById('week');
 let formweek = document.getElementById('formweek');
 let close = document.getElementsByClassName('close')[0];
-let openeditmonth = document.getElementById('openeditmonth');
-let openeditday = document.getElementById('openeditday');
-let editmonth = document.getElementById('editmonth');
-let editday= document.getElementById('editday');
 
-openeditday.onclick = function (){
-    editday.style.display="block";
-    editmonth.style.display="none";
-}
-openeditmonth.onclick = function (){
-    editday.style.display="none";
-    editmonth.style.display="block";
-}
 day.onclick = function () {
     formday.style.display = "block";
     formweek.style.display = "none";
