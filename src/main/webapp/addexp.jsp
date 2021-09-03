@@ -28,10 +28,11 @@
 </header>
 
 <section class="row">
-    <form action="/expenditure?action=editexp&idexp=${ex.id}" method="post">
+    <form action="/expenditure?action=addexp" method="post">
         <label>Số tiền</label>
-        <input name="money" type="number" value="${ex.money}"/>
+        <input name="money" type="number"/>
         <select name="id">
+            <option>Chọn danh mục</option>
             <c:forEach items="${listCategory}" var="cate">
                 <option value="${cate.id}">
                     <img width="50px" height="50px" src="${cate.linkIcon}"/>
@@ -39,8 +40,8 @@
                 </option>
             </c:forEach>
         </select>
-        <input name="note" type="text" value="${ex.note}"/>
-        <button type="submit">Sửa</button>
+        <input name="note" type="text"/>
+        <button type="submit">Thêm mới</button>
     </form>
 </section>
 <div class="row">

@@ -40,12 +40,12 @@ public class UserService implements IUserService<User> {
     @Override
     public void save(User user) {
 
-        try (
-                PreparedStatement preAddUser = connection.prepareStatement(ADD_USER, Statement.RETURN_GENERATED_KEYS);
-                PreparedStatement preAddExCate = connection.prepareStatement(ADD_EX_CATE);
-                PreparedStatement preAddReCate = connection.prepareStatement(ADD_RE_CATE);
-                PreparedStatement preAddLimited = connection.prepareStatement(ADD_LIMITED)
-        ) {
+        try {
+            PreparedStatement preAddUser = connection.prepareStatement(ADD_USER, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement preAddExCate = connection.prepareStatement(ADD_EX_CATE);
+            PreparedStatement preAddReCate = connection.prepareStatement(ADD_RE_CATE);
+            PreparedStatement preAddLimited = connection.prepareStatement(ADD_LIMITED);
+
             connection.setAutoCommit(false);
             preAddUser.setString(1, user.getFullName());
             preAddUser.setString(2, user.getPhone());
@@ -102,7 +102,8 @@ public class UserService implements IUserService<User> {
     @Override
     public User findByUsernameAndPassword(String username, String password) {
         User user = null;
-        try (PreparedStatement preFindUser = connection.prepareStatement(FIND_USER)) {
+        try {
+            PreparedStatement preFindUser = connection.prepareStatement(FIND_USER);
             preFindUser.setString(1, username);
             preFindUser.setString(2, password);
             ResultSet resultSet = preFindUser.executeQuery();

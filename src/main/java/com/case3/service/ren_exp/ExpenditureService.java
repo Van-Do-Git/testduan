@@ -25,7 +25,7 @@ public class ExpenditureService implements IRenExpService<Expenditure>{
             "VALUE (?,?,?,?)";
 
     private static final String UPDATE_EXPENDITURE_BY_ID = "UPDATE expenditure " +
-            "SET date_ex= ?, money_ex= ?, note= ?, id_ec= ?, WHERE id_ex=?";
+            "SET date_ex= ?, money_ex= ?, note= ?, id_ec= ? WHERE id_ex=?";
 
     private static final String DELETE_EXPENDITURE_BY_ID = "DELETE FROM expenditure WHERE id_ex=?";
 

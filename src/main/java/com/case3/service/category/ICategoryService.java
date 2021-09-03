@@ -6,4 +6,5 @@ import com.case3.service.IService;
 import java.util.Locale;
 
 public interface ICategoryService extends IService<Category> {
+
 }

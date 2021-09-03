@@ -13,6 +13,9 @@ public class LimitedService implements ILimitedService<Limited> {
 
 
     private static final String SELECT_LIMITED_BY_USER_ID = "select *from limited where id_user =?;";
+    private static final String UPDATE_LIMIT_DAY = "update limited set limit_day = ? where id_user = ?";
+    private static final String UPDATE_LIMIT_MONTH = "update limited set limit_month = ? where id_user = ?";
+
 
     @Override
     public List<Limited> findAll() {
@@ -60,4 +63,26 @@ public class LimitedService implements ILimitedService<Limited> {
         return limited;
     }
 
+    public void upateLimitDay(int id_user, int limitday) {
+        try {
+            Connection connection = ConnectionJDBC.getConnection();
+            PreparedStatement statement = connection.prepareStatement(UPDATE_LIMIT_DAY);
+            statement.setInt(1, limitday);
+            statement.setInt(2, id_user);
+            statement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+    public void upateLimitMonth(int id_user, int limitmonth) {
+        try {
+            Connection connection = ConnectionJDBC.getConnection();
+            PreparedStatement statement = connection.prepareStatement(UPDATE_LIMIT_MONTH);
+            statement.setInt(1, limitmonth);
+            statement.setInt(2, id_user);
+            statement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 }

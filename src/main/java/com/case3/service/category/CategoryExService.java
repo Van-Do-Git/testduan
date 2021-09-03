@@ -13,7 +13,10 @@ import java.util.List;
 public class CategoryExService implements ICategoryService {
     private static final String SELECT_CATEGORIES_BY_USER_ID =
             "select * from expenditure_categories join icon on expenditure_Categories.id_icon = icon.id_icon where id_user=?;";
+    private static final String SELECT_CATEGORIES_BY_ID =
+            "select *from expenditure_categories join icon on expenditure_Categories.id_icon = icon.id_icon where id_ec=?;";
 
+    Connection connection = ConnectionJDBC.getConnection();
 
     @Override
     public List<Category> findAll() {
@@ -22,7 +25,21 @@ public class CategoryExService implements ICategoryService {
 
     @Override
     public Category findById(int id) {
-        return null;
+        Category category = null;
+        try {
+            PreparedStatement statement = connection.prepareStatement(SELECT_CATEGORIES_BY_ID);
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int id_ec = resultSet.getInt("id_ec");
+                String name = resultSet.getString("name_ec");
+                String linkIcon = resultSet.getString("link_icon");
+                category = new Category(id_ec, name, linkIcon);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return category;
     }
 
     @Override
@@ -43,7 +60,7 @@ public class CategoryExService implements ICategoryService {
     public List<Category> findByIdUser(int id) {
         List<Category> lists = new ArrayList<>();
         try {
-            Connection connection = ConnectionJDBC.getConnection();
+
             PreparedStatement statement = connection.prepareStatement(SELECT_CATEGORIES_BY_USER_ID);
 
             statement.setInt(1, id);

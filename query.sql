@@ -81,3 +81,7 @@ where username = ?
 select * from expenditure_categories join icon on expenditure_Categories.id_icon = icon.id_icon where id_user=12;
 
 select *from limited where id_user =12;
+
+select *from expenditure_categories join icon on expenditure_Categories.id_icon = icon.id_icon where id_ec=?;
+
+UPDATE expenditure SET date_ex= ?, money_ex= ?, note= ?, id_ec= ? WHERE id_ex=?

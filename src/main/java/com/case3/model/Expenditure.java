@@ -12,6 +12,13 @@ public class Expenditure {
     public Expenditure() {
     }
 
+    public Expenditure(Category category, Date date, int money, String note) {
+        this.category = category;
+        this.date = date;
+        this.money = money;
+        this.note = note;
+    }
+
     public Expenditure(int id, Category category, Date date, int money, String note) {
         this.id = id;
         this.category = category;

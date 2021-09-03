@@ -18,10 +18,10 @@
 
 <header class="row">
     <h1 style="float: left" class="col-8">LogoPage</h1>
-    <div class="col-4">
+    <div class="col-4" style="text-align: right; padding-bottom: 2%">
         <p>${user.fullName}</p>
         <a href="/expenditure?action=logout">
-            <button>Đăng xuất</button>
+            <button style="position: relative; left: 80%">Đăng xuất</button>
         </a>
     </div>
 
@@ -48,7 +48,7 @@
     <div>
         <form class="row" id="formday" action="/expenditure?action=day" method="post" style="display: none">
             <label class="col-2">Ngày tháng:</label>
-            <input class="col-2" name="date" type="date" value="<scinew Date().toLocaleDateString()"><br>
+            <input class="col-2" name="date" type="date"><br>
             <div class="col-2">
                 <button class="close" type="submit">Ok</button>
             </div>
@@ -79,32 +79,24 @@
                     <th>Ghi chú</th>
                     <th>Sửa</th>
                 </tr>
-                <%
-                    Date date = new Date();
-                    SimpleDateFormat format =
-                            new SimpleDateFormat("yyyy.MM.dd");
-                    String dateString = format.format(date);
-                    Date dateNow = format.parse(dateString);
-                    request.setAttribute("dateNow", dateNow);
-                %>
+
                 <c:forEach items="${listEx}" var="exp">
                     <tr>
                         <td>${exp.date}</td>
-                        <td>${exp.category.linkIcon}</td>
+                        <td><img width="35px" height="35px" src="${exp.category.linkIcon}"></td>
                         <td>${exp.category.name}</td>
                         <td>${exp.money}</td>
                         <td>${exp.note}</td>
                         <td>
-                            <c:when test="${dateNow.compareTo(exp.date)}">
-                                <a href="/expenditure?action=editexp&&id=${exp.id}">
+                            <c:if test="${exp.date.equals(dateNow)}">
+                                <a href="/expenditure?action=editexp&idexp=${exp.id}">
                                     <button>Sửa</button>
                                 </a>
-                            </c:when>
+                            </c:if>
                         </td>
 
                     </tr>
                 </c:forEach>
-
             </table>
 
         </div>
@@ -133,6 +125,7 @@
                 </c:forEach>
 
             </table>
+
         </div>
         <div style="height: 65%; background-color:darkkhaki" class="col-4">
             <table>
@@ -146,24 +139,36 @@
                     <td>Hạn mức ngày</td>
                     <th>${limited.limitDay}</th>
                     <td>
-                        <a href="/expenditure?action=editday&id=${limited.id}">Edit</a>
+                        <button id="openeditday">Edit</button>
                     </td>
                 </tr>
                 <tr>
                     <td>Hạn mức tháng</td>
                     <th>${limited.limitMonth}</th>
                     <td>
-                        <a href="/expenditure?action=editmonth&id=${limited.id}">Edit</a>
+                        <button id="openeditmonth">Edit</button>
                     </td>
                 </tr>
             </table>
+            <form id="editmonth" action="/expenditure?action=editmonth&id=${limited.id}" method="post"
+                  style="display: none">
+                <input name="limitmonth" type="number" value="${limited.limitMonth}"><br>
+                <button class="close" type="submit">Ok</button>
+            </form>
+            <form id="editday" action="/expenditure?action=editday&id=${limited.id}" method="post"
+                  style="display: none">
+                <input name="limitday" type="number" value="${limited.limitDay}"><br>
+                <button class="close" type="submit">Ok</button>
+            </form>
         </div>
     </div>
 
     <div class="row">
         <div class="col-12">
             <div class="col-6">
-                <button type="button" class="col-6">Thêm khoản thu</button>
+                <a href="/expenditure?action=addexp">
+                    <button type="button" class="col-6">Thêm khoản chi</button>
+                </a>
             </div>
             <div class="col-6">
                 <button type="button" class="col-6">Tìm kiếm</button>
