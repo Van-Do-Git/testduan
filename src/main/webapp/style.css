@@ -114,7 +114,7 @@ section {
     font-size: 12px;
     padding: 15px;
     width: 100%;
-    height: 500px;
+    height: 100%;
 }
 
 footer {
@@ -126,6 +126,7 @@ footer {
     text-align: center;
     font-size: 12px;
     padding: 15px;
+    height: 10%;
 }
 
 /* For mobile phones: */

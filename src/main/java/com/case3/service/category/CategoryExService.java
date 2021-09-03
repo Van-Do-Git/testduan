@@ -15,6 +15,7 @@ public class CategoryExService implements ICategoryService {
             "select * from expenditure_categories join icon on expenditure_Categories.id_icon = icon.id_icon where id_user=?;";
     private static final String SELECT_CATEGORIES_BY_ID =
             "select *from expenditure_categories join icon on expenditure_Categories.id_icon = icon.id_icon where id_ec=?;";
+    private static final String II_EX_CATEGORIES = "insert into expenditure_categories(name_ec,id_icon,id_user) value (?,?,?)";
 
     Connection connection = ConnectionJDBC.getConnection();
 
@@ -75,5 +76,18 @@ public class CategoryExService implements ICategoryService {
             throwables.printStackTrace();
         }
         return lists;
+    }
+
+    public void addNewCate(int idIcon, String nameCate, int id) {
+        try {
+            PreparedStatement statement = connection.prepareStatement(II_EX_CATEGORIES);
+            statement.setString(1, nameCate);
+            statement.setInt(2, idIcon);
+            statement.setInt(3, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 }

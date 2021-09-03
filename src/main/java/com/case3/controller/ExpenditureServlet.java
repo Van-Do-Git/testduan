@@ -2,9 +2,11 @@ package com.case3.controller;
 
 import com.case3.model.Category;
 import com.case3.model.Expenditure;
+import com.case3.model.Icon;
 import com.case3.model.Limited;
 import com.case3.model.User;
 import com.case3.service.category.CategoryExService;
+import com.case3.service.icon.IconService;
 import com.case3.service.limited.LimitedService;
 import com.case3.service.ren_exp.ExpenditureService;
 
@@ -22,6 +24,7 @@ public class ExpenditureServlet extends HttpServlet {
     ExpenditureService expenditureService = new ExpenditureService();
     CategoryExService categoryExService = new CategoryExService();
     LimitedService limitedService = new LimitedService();
+    IconService iconService = new IconService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -31,6 +34,9 @@ public class ExpenditureServlet extends HttpServlet {
             action = "";
         }
         switch (action) {
+            case "addCate":
+                showFormAddCategory(request, response);
+                break;
             case "logout":
                 session.removeAttribute("user");
                 response.sendRedirect("/expenditure?action=");
@@ -49,6 +55,19 @@ public class ExpenditureServlet extends HttpServlet {
                 }
                 break;
 
+        }
+    }
+
+    private void showFormAddCategory(HttpServletRequest request, HttpServletResponse response) {
+        List<Icon> iconList = iconService.findAll();
+        request.setAttribute("icon", iconList);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/addcate.jsp");
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -73,11 +92,17 @@ public class ExpenditureServlet extends HttpServlet {
             action = "";
         }
         switch (action) {
+            case "money":
+                showListByMoney(request, response);
+                break;
             case "day":
+                showListByDay(request, response);
                 break;
             case "week":
+                showListByWeek(request, response);
                 break;
             case "month":
+                showListByMonth(request, response);
                 break;
             case "editday":
                 editLimitDay(request, response);
@@ -91,8 +116,110 @@ public class ExpenditureServlet extends HttpServlet {
             case "addexp":
                 addNewExpenditure(request, response);
                 break;
+            case "addCate":
+                addNewCategory(request, response);
+                break;
             default:
                 showExpenditure(request, response);
+        }
+    }
+
+    private void showListByMoney(HttpServletRequest request, HttpServletResponse response) {
+        int min = Integer.parseInt(request.getParameter("min"));
+        int max = Integer.parseInt(request.getParameter("max"));
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        List<Expenditure> listMoney = expenditureService.findByMoney(min, max, user.getId());
+        request.setAttribute("listEx", listMoney);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/expenditure.jsp");
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void addNewCategory(HttpServletRequest request, HttpServletResponse response) {
+        int idIcon = Integer.parseInt(request.getParameter("idIcon"));
+        String nameCate = request.getParameter("nameCate");
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        categoryExService.addNewCate(idIcon, nameCate, user.getId());
+        try {
+            response.sendRedirect("/expenditure?action=");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void showListByMonth(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        Date date = new Date();
+        String dateString = request.getParameter("date");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            date = format.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        List<Expenditure> listMonth = expenditureService.findByMonth(date, user.getId());
+        request.setAttribute("listEx", listMonth);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/expenditure.jsp");
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void showListByWeek(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        Date date = new Date();
+        String dateString = request.getParameter("date");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            date = format.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        List<Expenditure> listWeek = expenditureService.findByWeek(date, user.getId());
+        request.setAttribute("listEx", listWeek);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/expenditure.jsp");
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void showListByDay(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        Date date = new Date();
+        String dateString = request.getParameter("date");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            date = format.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        List<Expenditure> listDay = expenditureService.findByDay(date, user.getId());
+        request.setAttribute("listEx", listDay);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/expenditure.jsp");
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -140,14 +267,38 @@ public class ExpenditureServlet extends HttpServlet {
 
     private void addNewExpenditure(HttpServletRequest request, HttpServletResponse response) {
         Date date = new Date();
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        Limited limited = (Limited) session.getAttribute("limited");
         int money = Integer.parseInt(request.getParameter("money"));
         String note = request.getParameter("note");
         int id_category = Integer.parseInt(request.getParameter("id"));
         Category category = categoryExService.findById(id_category);
         Expenditure expenditure = new Expenditure(category, date, money, note);
         expenditureService.save(expenditure);
+        List<Expenditure> listDay = expenditureService.findByDay(date, user.getId());
+        List<Expenditure> listMonth = expenditureService.findByMonth(date, user.getId());
+        int totalMoneyByDay = 0;
+        int totalMoneyByMonth = 0;
+        for (int i = 0; i < listDay.size(); i++) {
+            totalMoneyByDay += listDay.get(i).getMoney();
+        }
+        for (int i = 0; i < listMonth.size(); i++) {
+            totalMoneyByMonth += listMonth.get(i).getMoney();
+        }
+        String message = "";
+        if (totalMoneyByDay > limited.getLimitDay()) {
+            message = message + "Vuot qua han muc ngay !";
+        }
+        if (totalMoneyByMonth > limited.getLimitMonth()) {
+            message = message + " Vuot qua han muc thang !";
+        }
+        request.setAttribute("message", message);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/expenditure?action=");
         try {
-            response.sendRedirect("/expenditure?action=");
+            dispatcher.forward(request,response);
+        } catch (ServletException e) {
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -164,10 +315,10 @@ public class ExpenditureServlet extends HttpServlet {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        request.setAttribute("dateNow", dateNow);
         RequestDispatcher dispatcher = request.getRequestDispatcher("expenditure.jsp");
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
+        session.setAttribute("dateNow", dateNow);
 
 
         List<Expenditure> listMonth = expenditureService.findByMonth(date, user.getId());

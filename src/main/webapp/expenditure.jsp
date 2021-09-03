@@ -14,6 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
     <link rel="stylesheet" href="/style.css">
     <LINK REL="SHORTCUT ICON" HREF="/iconweb.ico">
+    <title>Quản lý tài chính</title>
 </head>
 <body>
 
@@ -40,6 +41,7 @@
                     <li><a id="day">Theo ngày</a></li>
                     <li><a id="week">Theo tuần</a></li>
                     <li><a id="month">Theo tháng</a></li>
+                    <li><a id="bymoney">Theo tiền</a></li>
                 </ul>
             </li>
         </ul>
@@ -47,6 +49,15 @@
     <div class="row" style="width: 70%;height: 0;background: none;border: none;float: left;clear: both">
     </div>
     <div>
+        <form class="row" id="formmoney" action="/expenditure?action=money" method="post" style="display: none">
+            <label class="col-2">Từ:</label>
+            <input class="col-2" name="min" type="number"><br>
+            <label class="col-2">Đến:</label>
+            <input class="col-2" name="max" type="number"><br>
+            <div class="col-2">
+                <button class="close" type="submit">Ok</button>
+            </div>
+        </form>
         <form class="row" id="formday" action="/expenditure?action=day" method="post" style="display: none">
             <label class="col-2">Ngày tháng:</label>
             <input class="col-2" name="date" type="date"><br>
@@ -104,31 +115,29 @@
 
     </div>
     <div class="row">
-        <div style=" background-color: silver" class="col-8">
+        <div style=" background-color: silver" class="col-6">
             <table>
                 <tr>
                     <th>Danh mục</th>
                     <th>Tên danh mục</th>
-                    <th>Sửa danh mục</th>
-                    <th>Thêm danh mục</th>
                 </tr>
                 <c:forEach items="${listCategory}" var="cate">
                     <tr>
                         <td><img width="50px" height="50px" src="${cate.linkIcon}"/></td>
                         <td>${cate.name}</td>
-                        <td><a href="/expenditure?action=edit&id=cate.id">
-                            <button>Sửa danh mục</button>
-                        </a></td>
-                        <td><a href="/expenditure?action=addCate">
-                            <button>Thêm danh mục</button>
-                        </a></td>
+
                     </tr>
                 </c:forEach>
+                <tr>
+                    <td><a href="/expenditure?action=addCate">
+                        <button>Thêm danh mục</button>
+                    </a></td>
+                </tr>
 
             </table>
 
         </div>
-        <div style=" background-color:darkkhaki" class="col-4">
+        <div style=" background-color:darkkhaki" class="col-6">
             <table>
                 <tr>
                     <th>Hạn mức</th>
@@ -151,6 +160,9 @@
                     </td>
                 </tr>
             </table>
+            <c:if test="${message!=''}">
+                <p style="color: #cc3333">${message}</p>
+            </c:if>
             <form id="editmonth" action="/expenditure?action=editmonth&id=${limited.id}" method="post"
                   style="display: none">
                 <table>
@@ -175,7 +187,6 @@
                 </table>
             </form>
             <script>
-                let close = document.getElementsByClassName('close')[0];
                 let openeditmonth = document.getElementById('openeditmonth');
                 let openeditday = document.getElementById('openeditday');
                 let editmonth = document.getElementById('editmonth');
@@ -203,9 +214,6 @@
                 <a href="/expenditure?action=addexp">
                     <button type="button" class="col-6">Thêm khoản chi</button>
                 </a>
-            </div>
-            <div class="col-6">
-                <button type="button" class="col-6">Tìm kiếm</button>
             </div>
         </div>
     </div>

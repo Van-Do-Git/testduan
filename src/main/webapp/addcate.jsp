@@ -30,31 +30,25 @@
 </header>
 
 <section class="row">
-    <form action="/expenditure?action=addexp" method="post">
+    <form action="/expenditure?action=addCate" method="post" class="col-4">
         <table>
             <tr>
                 <td>
-                    <label>Số tiền</label>
-                    <input id="money" name="money" type="number"/>
-                </td>
-                <td>
-                    <select name="id">
-                        <option>Chọn danh mục</option>
-                        <c:forEach items="${listCategory}" var="cate">
-                            <option value="${cate.id}">
-                                <img width="50px" height="50px" src="${cate.linkIcon}"/>
-                                    ${cate.name}
-                            </option>
-                        </c:forEach>
-                    </select>
-                </td>
-                <td>
-                    <input name="note" type="text"/>
+                    <label>Tên danh mục</label>
+                    <input name="nameCate" type="text"/>
                 </td>
                 <td>
                     <button type="submit">Thêm mới</button>
                 </td>
             </tr>
+            <c:forEach items="${icon}" var="icon">
+                <tr>
+                    <td>
+                        <img width="50px" height="50px" src="${icon.linkIcon}"/>
+                        <input type="radio" name="idIcon" value="${icon.id}">
+                    </td>
+                </tr>
+            </c:forEach>
         </table>
     </form>
 </section>

@@ -11,6 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
     <link rel="stylesheet" href="/style.css">
     <LINK REL="SHORTCUT ICON"  HREF="/iconweb.ico">
+    <title>Quản lý tài chính</title>
 </head>
 <body>
 

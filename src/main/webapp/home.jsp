@@ -10,6 +10,7 @@
 <html>
 <head>
     <LINK REL="SHORTCUT ICON"  HREF="/iconweb.ico">
+    <title>Quản lý tài chính</title>
     <style>
         .a {
             padding-right: 300px;

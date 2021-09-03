@@ -13,7 +13,8 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
     <link rel="stylesheet" href="/style.css">
-    <LINK REL="SHORTCUT ICON"  HREF="/iconweb.ico">
+    <LINK REL="SHORTCUT ICON" HREF="/iconweb.ico">
+    <title>Quản lý tài chính</title>
 </head>
 <body>
 
@@ -30,18 +31,31 @@
 
 <section class="row">
     <form action="/expenditure?action=editexp&idexp=${ex.id}" method="post">
-        <label>Số tiền</label>
-        <input name="money" type="number" value="${ex.money}"/>
-        <select name="id">
-            <c:forEach items="${listCategory}" var="cate">
-                <option value="${cate.id}">
-                    <img width="50px" height="50px" src="${cate.linkIcon}"/>
-                        ${cate.name}
-                </option>
-            </c:forEach>
-        </select>
-        <input name="note" type="text" value="${ex.note}"/>
-        <button type="submit">Sửa</button>
+        <table>
+            <tr>
+                <td>
+                    <label>Số tiền</label>
+                    <input name="money" type="number" value="${ex.money}"/>
+                </td>
+                <td>
+                    <select name="id">
+                        <c:forEach items="${listCategory}" var="cate">
+                            <option value="${cate.id}">
+                                <img width="50px" height="50px" src="${cate.linkIcon}"/>
+                                    ${cate.name}
+                            </option>
+                        </c:forEach>
+                    </select>
+                </td>
+                <td>
+                    <input name="note" type="text" value="${ex.note}"/>
+                </td>
+                <td>
+                    <button type="submit">Sửa</button>
+                </td>
+            </tr>
+        </table>
+
     </form>
 </section>
 <div class="row">
