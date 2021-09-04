@@ -19,14 +19,21 @@
 <body>
 
 <header class="row">
-    <h1 style="float: left" class="col-8">LogoPage</h1>
-    <div class="col-4" style="text-align: right; padding-bottom: 2%">
-        <p>${user.fullName}</p>
-        <a href="/revenue?action=logout">
-            <button style="position: relative; left: 80%">Đăng xuất</button>
-        </a>
-    </div>
-
+    <table style="border: none; width: 100%">
+        <tr style="margin-bottom: 2px">
+            <td style="text-align: left;border: none;">
+                <h1 style="font-size: 50px;color: white">Tài Chính Team</h1>
+            </td>
+            <td style="text-align: right;border: none;">
+                <div style="text-align: right; padding-bottom: 2%">
+                    <p style="color: white;font-size: 15px">${user.fullName}</p>
+                    <a href="/expenditure?action=logout" style="color: white;font-size: 15px">
+                        Đăng xuất
+                    </a>
+                </div>
+            </td>
+        </tr>
+    </table>
 </header>
 
 <section class="row">

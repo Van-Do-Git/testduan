@@ -8,7 +8,7 @@ public class Validate {
     private static Validate instance;
     public static String regexPhone = "^[0-9]{9,10}$";
     public static String regexPassword = "^[0-9]{6,8}$";
-    public static String regexUsername = "^[\\w]{6,8}$";
+    public static String regexUsername = "^[\\w]{4,8}$";
 
     private Validate() {
     }

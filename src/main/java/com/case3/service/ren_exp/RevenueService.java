@@ -11,10 +11,10 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Date;
 
-public class RevenueService implements IRenExpService<Revenue>{
+public class RevenueService implements IRenExpService<Revenue> {
 
 
-    private static  final  String SELECT_ALL_REVENUE = "SELECT*FROM revenue";
+    private static final String SELECT_ALL_REVENUE = "SELECT*FROM revenue";
 
     private static final String SELECT_REVENUE_BY_ID = "SELECT*FROM revenue WHERE id_re=?";
 
@@ -57,6 +57,11 @@ public class RevenueService implements IRenExpService<Revenue>{
                     "from revenue r join revenue_Categories rC on rC.id_rc = r.id_rc\n" +
                     "where rC.id_user = ? and month(r.date_re)=month(?)\n" +
                     "group by rC.name_rc";
+    private static final String SELECT_CATEGORY_AND_SUM_MONEY_BY_USER_ID_AND_DAY_OF_DATE =
+            "select rC.name_rc,sum(r.money_re)\n" +
+                    "from revenue r join revenue_Categories rC on rC.id_rc = r.id_rc\n" +
+                    "where rC.id_user = ? and r.date_re=?\n" +
+                    "group by rC.name_rc";
 
     Connection connection = ConnectionJDBC.getConnection();
     CategoryReService categoryReService = new CategoryReService();
@@ -67,13 +72,13 @@ public class RevenueService implements IRenExpService<Revenue>{
         try {
             PreparedStatement statement = connection.prepareStatement(SELECT_ALL_REVENUE);
             ResultSet rs = statement.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 int id = rs.getInt(1);
-                Date date =  rs.getDate(2);
+                Date date = rs.getDate(2);
                 int money = rs.getInt(3);
                 String note = rs.getString(4);
                 Category category = categoryReService.findById(rs.getInt(5));
-                revenues.add(new Revenue (id,category,date,money,note));
+                revenues.add(new Revenue(id, category, date, money, note));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -86,14 +91,14 @@ public class RevenueService implements IRenExpService<Revenue>{
         Revenue revenue = null;
         try {
             PreparedStatement statement = connection.prepareStatement(SELECT_REVENUE_BY_ID);
-            statement.setInt(1,id);
+            statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
-            while (rs.next()){
-                Date date =  rs.getDate(2);
+            while (rs.next()) {
+                Date date = rs.getDate(2);
                 int money = rs.getInt(3);
                 String note = rs.getString(4);
                 Category category = categoryReService.findById(rs.getInt(5));
-                revenue = new Revenue(id,category,date,money,note);
+                revenue = new Revenue(id, category, date, money, note);
             }
 
         } catch (SQLException throwables) {
@@ -108,9 +113,9 @@ public class RevenueService implements IRenExpService<Revenue>{
             PreparedStatement statement = connection.prepareStatement(II_REVENUE);
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
             statement.setString(1, dateFormat.format(r.getDate()));
-            statement.setInt(2,r.getMoney());
-            statement.setString(3,r.getNote());
-            statement.setInt(4,r.getCategory().getId());
+            statement.setInt(2, r.getMoney());
+            statement.setString(3, r.getNote());
+            statement.setInt(4, r.getCategory().getId());
             statement.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -123,10 +128,10 @@ public class RevenueService implements IRenExpService<Revenue>{
             PreparedStatement statement = connection.prepareStatement(UPDATE_REVENUE_BY_ID);
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
             statement.setString(1, dateFormat.format(r.getDate()));
-            statement.setInt(2,r.getMoney());
-            statement.setString(3,r.getNote());
-            statement.setInt(4,r.getCategory().getId());
-            statement.setInt(5,id);
+            statement.setInt(2, r.getMoney());
+            statement.setString(3, r.getNote());
+            statement.setInt(4, r.getCategory().getId());
+            statement.setInt(5, id);
             statement.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -137,7 +142,7 @@ public class RevenueService implements IRenExpService<Revenue>{
     public void delete(int id) {
         try {
             PreparedStatement statement = connection.prepareStatement(DELETE_REVENUE_BY_ID);
-            statement.setInt(1,id);
+            statement.setInt(1, id);
             statement.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -150,10 +155,10 @@ public class RevenueService implements IRenExpService<Revenue>{
         try {
             PreparedStatement statement = connection.prepareStatement(SELECT_REVENUE_BY_DAY_AND_USER_ID);
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-            statement.setInt(1,id_user);
-            statement.setString(2,dateFormat.format(date));
+            statement.setInt(1, id_user);
+            statement.setString(2, dateFormat.format(date));
             ResultSet rs = statement.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 int id = rs.getInt(1);
                 revenues.add(findById(id));
             }
@@ -169,10 +174,10 @@ public class RevenueService implements IRenExpService<Revenue>{
         try {
             PreparedStatement statement = connection.prepareStatement(SELECT_REVENUE_BY_USER_ID_AND_WEEK_OF_DATE);
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-            statement.setInt(1,id_user);
-            statement.setString(2,dateFormat.format(date));
+            statement.setInt(1, id_user);
+            statement.setString(2, dateFormat.format(date));
             ResultSet rs = statement.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 int id = rs.getInt(1);
                 revenues.add(findById(id));
             }
@@ -188,10 +193,10 @@ public class RevenueService implements IRenExpService<Revenue>{
         try {
             PreparedStatement statement = connection.prepareStatement(SELECT_REVENUE_BY_USER_ID_AND_MONTH_OF_DATE);
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-            statement.setInt(1,id_user);
-            statement.setString(2,dateFormat.format(date));
+            statement.setInt(1, id_user);
+            statement.setString(2, dateFormat.format(date));
             ResultSet rs = statement.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 int id = rs.getInt(1);
                 revenues.add(findById(id));
             }
@@ -202,15 +207,15 @@ public class RevenueService implements IRenExpService<Revenue>{
     }
 
     @Override
-    public List<Revenue> findByMoney(int minMoney,int maxMoney, int id_user) {
+    public List<Revenue> findByMoney(int minMoney, int maxMoney, int id_user) {
         List<Revenue> revenues = new ArrayList<>();
         try {
             PreparedStatement statement = connection.prepareStatement(SELECT_REVENUE_BY_MONEY_AND_USER_ID);
-            statement.setInt(1,id_user);
-            statement.setInt(2,minMoney);
-            statement.setInt(3,maxMoney);
+            statement.setInt(1, id_user);
+            statement.setInt(2, minMoney);
+            statement.setInt(3, maxMoney);
             ResultSet rs = statement.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 int id = rs.getInt(1);
                 revenues.add(findById(id));
             }
@@ -222,17 +227,17 @@ public class RevenueService implements IRenExpService<Revenue>{
 
     @Override
     public Map<String, Integer> sumMoneyOfCategoryByWeek(int id_user, Date date) {
-        Map<String,Integer> sumMoneyRevanueCategories = new HashMap<>();
+        Map<String, Integer> sumMoneyRevanueCategories = new HashMap<>();
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         try {
             PreparedStatement statement = connection.prepareStatement(SELECT_CATEGORY_AND_SUM_MONEY_BY_USER_ID_AND_WEEK_OF_DATE);
-            statement.setInt(1,id_user);
-            statement.setString(2,dateFormat.format(date));
+            statement.setInt(1, id_user);
+            statement.setString(2, dateFormat.format(date));
             ResultSet rs = statement.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 String categoryName = rs.getString(1);
                 int sumMoney = rs.getInt(2);
-                sumMoneyRevanueCategories.put(categoryName,sumMoney);
+                sumMoneyRevanueCategories.put(categoryName, sumMoney);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -242,17 +247,37 @@ public class RevenueService implements IRenExpService<Revenue>{
 
     @Override
     public Map<String, Integer> sumMoneyOfCategoryByMonth(int id_user, Date date) {
-        Map<String,Integer> sumMoneyRevanueCategories = new HashMap<>();
+        Map<String, Integer> sumMoneyRevanueCategories = new HashMap<>();
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         try {
             PreparedStatement statement = connection.prepareStatement(SELECT_CATEGORY_AND_SUM_MONEY_BY_USER_ID_AND_MONTH_OF_DATE);
-            statement.setInt(1,id_user);
-            statement.setString(2,dateFormat.format(date));
+            statement.setInt(1, id_user);
+            statement.setString(2, dateFormat.format(date));
             ResultSet rs = statement.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 String categoryName = rs.getString(1);
                 int sumMoney = rs.getInt(2);
-                sumMoneyRevanueCategories.put(categoryName,sumMoney);
+                sumMoneyRevanueCategories.put(categoryName, sumMoney);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return sumMoneyRevanueCategories;
+    }
+
+    @Override
+    public Map<String, Integer> sumMoneyOfCategoryByDay(int id_user, Date date) {
+        Map<String, Integer> sumMoneyRevanueCategories = new HashMap<>();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        try {
+            PreparedStatement statement = connection.prepareStatement(SELECT_CATEGORY_AND_SUM_MONEY_BY_USER_ID_AND_DAY_OF_DATE);
+            statement.setInt(1, id_user);
+            statement.setString(2, dateFormat.format(date));
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                String categoryName = rs.getString(1);
+                int sumMoney = rs.getInt(2);
+                sumMoneyRevanueCategories.put(categoryName, sumMoney);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

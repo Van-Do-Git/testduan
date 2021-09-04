@@ -15,6 +15,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet(name = "Revenue", value = "/revenue")
 public class RevenueServlet extends HttpServlet {
@@ -99,6 +100,10 @@ public class RevenueServlet extends HttpServlet {
         session.setAttribute("dateNow", dateNow);
         List<Revenue> listMonth = revenueService.findByMonth(date, user.getId());
         List<Category> listCategory = categoryReService.findByIdUser(user.getId());
+        Map<String, Integer> map = revenueService.sumMoneyOfCategoryByMonth(user.getId(), date);
+        int size = map.size();
+        request.setAttribute("map", map);
+        request.setAttribute("size", size);
         int totalMoney = 0;
         for (int i = 0; i < listMonth.size(); i++) {
             totalMoney += listMonth.get(i).getMoney();
@@ -166,6 +171,10 @@ public class RevenueServlet extends HttpServlet {
             e.printStackTrace();
         }
         List<Revenue> listMonth = revenueService.findByMonth(date, user.getId());
+        Map<String, Integer> map = revenueService.sumMoneyOfCategoryByMonth(user.getId(), date);
+        int size = map.size();
+        request.setAttribute("map", map);
+        request.setAttribute("size", size);
         int totalMoney = 0;
         for (int i = 0; i < listMonth.size(); i++) {
             totalMoney += listMonth.get(i).getMoney();
@@ -193,6 +202,10 @@ public class RevenueServlet extends HttpServlet {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        Map<String, Integer> map = revenueService.sumMoneyOfCategoryByWeek(user.getId(), date);
+        int size = map.size();
+        request.setAttribute("map", map);
+        request.setAttribute("size", size);
         List<Revenue> listWeek = revenueService.findByWeek(date, user.getId());
         int totalMoney = 0;
         for (int i = 0; i < listWeek.size(); i++) {
@@ -222,6 +235,10 @@ public class RevenueServlet extends HttpServlet {
             e.printStackTrace();
         }
         List<Revenue> listDay = revenueService.findByDay(date, user.getId());
+        Map<String, Integer> map = revenueService.sumMoneyOfCategoryByDay(user.getId(), date);
+        int size = map.size();
+        request.setAttribute("map", map);
+        request.setAttribute("size", size);
         int totalMoney = 0;
         for (int i = 0; i < listDay.size(); i++) {
             totalMoney += listDay.get(i).getMoney();

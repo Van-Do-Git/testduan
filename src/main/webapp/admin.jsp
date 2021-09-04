@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Dai
@@ -10,64 +11,60 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
     <link rel="stylesheet" href="/style.css">
-    <LINK REL="SHORTCUT ICON"  HREF="/iconweb.ico">
+    <LINK REL="SHORTCUT ICON" HREF="/iconweb.ico">
     <title>Quản lý tài chính</title>
 </head>
 <body>
 
 <header class="row">
-    <h1 style="float: left" class="col-8">LogoPage</h1>
-    <button type="button" class="col-2" style="margin-top: 2%">Login</button>
-    <button type="button" class="col-2" style="margin-top: 2%">Sign</button>
-    <p>${message}</p>
+    <table style="border: none; width: 100%">
+        <tr style="margin-bottom: 2px">
+            <td style="text-align: left;border: none;">
+                <h1 style="font-size: 50px;color: white">Tài Chính Team</h1>
+            </td>
+            <td style="text-align: right;border: none;">
+                <div style="text-align: right; padding-bottom: 2%">
+                    <p style="color: white;font-size: 15px">${user.fullName}</p>
+                    <a href="/expenditure?action=logout" style="color: white;font-size: 15px">
+                        Đăng xuất
+                    </a>
+                </div>
+            </td>
+        </tr>
+    </table>
 </header>
-
 <section>
-    <div class="row">
-        <button type="button" class="col-6 col-m-6">Thu</button>
-        <button type="button" class="col-6 col-m-6">Chi</button>
-    </div>
 
-    <div id="menu" class="row">
-        <ul class="col-12">
-            <li><a href="#">Chi Tiết</a>
-                <ul>
-                    <li><a href="#">Theo ngày</a></li>
-                    <li><a href="#">Theo tuần</a></li>
-                    <li><a href="#">Theo tháng</a></li>
-                </ul>
-            </li>
-            <li><a href="#">Hạn Mức</a>
-                <ul>
-                    <li><a href="#">Theo ngày</a></li>
-                    <li><a href="#">Theo tháng</a></li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-    <div class="row" >
-        <div style="height: 65%; background-color: aquamarine" class="col-7" >
+    <div style="background-color: aquamarine" class="col-12">
+        <table style="width: 100%">
+            <tr>
+                <th>ID USER</th>
+                <th>Full name</th>
+                <th>Số điện thoại</th>
+                <th>Quyền</th>
+                <th>Trạng thái</th>
+                <th>Sửa</th>
+            </tr>
 
-        </div>
-        <div style="height: 65%; background-color:darkkhaki" class="col-4">
-
-        </div>
-
-    </div>
-
-    <div class="row">
-        <div class="col-12">
-            <div class="col-6">
-                <button type="button" class="col-6" >Thêm khoản thu</button>
-            </div>
-            <div class="col-6">
-                <button type="button" class="col-6">Tìm kiếm theo mức thu</button>
-            </div>
-        </div>
+            <c:forEach items="${userList}" var="users">
+                <tr>
+                    <td>${users.id}</td>
+                    <td>${users.fullName}</td>
+                    <td>${users.phone}</td>
+                    <td>${users.role}</td>
+                    <td>${users.status}</td>
+                    <td>
+                        <a href="/homepage?action=editStatus&idUser=${users.id}&status=${users.status}">
+                            <button>Sửa trạng thái</button>
+                        </a>
+                    </td>
+                </tr>
+            </c:forEach>
+        </table>
     </div>
 </section>
 <div class="row">
-    <footer >
+    <footer>
         <p>Liên hệ: 18008198.</p>
     </footer>
 </div>

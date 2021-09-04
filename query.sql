@@ -78,10 +78,39 @@ from users
 where username = ?
   and password = ?;
 
-select * from expenditure_categories join icon on expenditure_Categories.id_icon = icon.id_icon where id_user=12;
+select *
+from expenditure_categories
+         join icon on expenditure_Categories.id_icon = icon.id_icon
+where id_user = 12;
 
-select *from limited where id_user =12;
+select *
+from limited
+where id_user = 12;
 
-select *from expenditure_categories join icon on expenditure_Categories.id_icon = icon.id_icon where id_ec=?;
+select *
+from expenditure_categories
+         join icon on expenditure_Categories.id_icon = icon.id_icon
+where id_ec = ?;
 
-UPDATE expenditure SET date_ex= ?, money_ex= ?, note= ?, id_ec= ? WHERE id_ex=?
+UPDATE expenditure
+SET date_ex= ?,
+    money_ex= ?,
+    note= ?,
+    id_ec= ?
+WHERE id_ex = ?;
+
+select *
+from role
+         join users on role.id_role = users.id_role
+         join limited on users.id_user = limited.id_user;
+
+select *
+from users
+         join role on users.id_role = role.id_role
+         join limited on users.id_user = limited.id_user
+where username = ?
+  and password = ?;
+
+select * from role join users on role.id_role = users.id_role;
+
+update users set status = ? where id_user = ?;

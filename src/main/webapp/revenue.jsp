@@ -12,28 +12,29 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
-    <link rel="stylesheet" href="/style.css">
-    <LINK REL="SHORTCUT ICON" HREF="/iconweb.ico">
+    <link rel="stylesheet" href="style.css">
+    <LINK REL="SHORTCUT ICON" HREF="iconweb.ico">
     <title>Quản lý tài chính</title>
 </head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 <body>
 
 <header class="row">
-    <div class="col-10">
-        <h1 style="font-size: 50px">Tài Chính Team</h1>
-    </div>
-    <div class="col-2" style="text-align: center;">
-        <select>
-            <option selected>
-                ${user.fullName}
-            </option>
-            <option>
-                <a href="/revenue?action=logout">
-                    <button style="background-color: white;width: auto">Đăng xuất</button>
-                </a>
-            </option>
-        </select>
-    </div>
+    <table style="border: none; width: 100%">
+        <tr style="margin-bottom: 2px">
+            <td style="text-align: left;border: none;">
+                <h1 style="font-size: 50px;color: white">Tài Chính Team</h1>
+            </td>
+            <td style="text-align: right;border: none;">
+                <div style="text-align: right; padding-bottom: 2%">
+                    <p style="color: white;font-size: 15px">${user.fullName}</p>
+                    <a href="/expenditure?action=logout" style="color: white;font-size: 15px">
+                        Đăng xuất
+                    </a>
+                </div>
+            </td>
+        </tr>
+    </table>
 </header>
 
 <section class="row">
@@ -189,7 +190,6 @@
                         <tr>
                             <td><img width="50px" height="50px" src="${cate.linkIcon}"/></td>
                             <td>${cate.name}</td>
-
                         </tr>
                     </c:forEach>
                     <tr>
@@ -201,6 +201,55 @@
                 </table>
 
             </div>
+            <div style="background-color: chocolate" class="col-6">
+                <canvas id="myChart" style="width:50%;max-width:500px"></canvas>
+                <button type="button" onclick="ve();">Xem biểu đồ</button>
+
+                <script>
+                    function ve() {
+                        var xValues = [];
+                        var yValues = [];
+                        var size = document.getElementById("size").value;
+                        for (let i = 0; i < size; i++) {
+                            xValues.push(document.getElementById(i + "k").value);
+                            yValues.push(document.getElementById(i + "v").value);
+                        }
+                        var barColors = [
+                            "#b91d47",
+                            "#00aba9",
+                            "#2b5797",
+                            "#a49e9e",
+                            "#458463",
+                            "#a93b75",
+                            "#ff020d",
+                            "#00ff77",
+                            "#ffd400",
+                            "#c528f6",
+                            "#000000",
+                            "#22ff00",
+                            "#ffffff"
+                        ];
+
+
+                        new Chart("myChart", {
+                            type: "pie",
+                            data: {
+                                labels: xValues,
+                                datasets: [{
+                                    backgroundColor: barColors,
+                                    data: yValues,
+                                }]
+                            },
+                            options: {
+                                title: {
+                                    display: true,
+                                    text: "Biểu đồ thu chi cá nhân"
+                                }
+                            }
+                        });
+                    }
+                </script>
+            </div>
             <div class="col-12">
                 <div class="col-6">
                     <a href="/revenue?action=addre">
@@ -211,6 +260,14 @@
         </div>
     </div>
 </section>
+<div style="display: none">
+    <c:forEach items="${map}" var="map" varStatus="count">
+        <input id="${count.index}v" value="${map.value}" type="number">
+        <input id="${count.index}k" value="${map.key}" type="text">
+    </c:forEach>
+    <input id="size" value="${size}">
+</div>
+
 <div class="row">
     <footer>
         <p>Liên hệ: 18008198.</p>

@@ -264,4 +264,9 @@ public class ExpenditureService implements IRenExpService<Expenditure>{
         return sumMoneyExpenditureByCategories;
     }
 
+    @Override
+    public Map<String, Integer> sumMoneyOfCategoryByDay(int id_user, Date date) {
+        return null;
+    }
+
 }

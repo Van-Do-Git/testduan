@@ -20,56 +20,6 @@ html {
     font-size: 12px;
 }
 
-table {
-    border: 1px solid #ccc;
-}
-
-th {
-    border: 1px solid #ccc;
-    background-color: chartreuse;
-    height: 50px;
-    width: 128px;
-}
-
-td {
-    border: 1px solid #ccc;
-    text-align: center;
-    width: 150px;
-
-}
-
-tr {
-    text-align: center;
-}
-
-fieldset {
-    background-color: lightcyan;
-}
-
-legend {
-    color: green;;
-}
-
-button {
-    width: 150px;
-    background-color: wheat;
-    height: 30px;
-    color: black;
-    text-align: center;
-}
-
-.edit {
-    background-color: orange;
-}
-
-.delete {
-    background-color: red;
-}
-
-input {
-    width: 100px;
-}
-
 #menu {
     height: 30px;
     width: 50%;

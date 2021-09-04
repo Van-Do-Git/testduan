@@ -13,4 +13,5 @@ public interface IRenExpService<E> extends IService<E> {
     List<E> findByMoney (int minMoney,int maxMoney,int id_user);
     Map<String, Integer> sumMoneyOfCategoryByWeek(int id_user, Date date);
     Map<String, Integer> sumMoneyOfCategoryByMonth(int id_user, Date date);
+    Map<String, Integer> sumMoneyOfCategoryByDay(int id_user, Date date);
 }

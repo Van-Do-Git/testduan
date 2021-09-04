@@ -19,21 +19,21 @@
 <body>
 
 <header class="row">
-    <div class="col-10">
-        <h1 style="font-size: 50px">Tài Chính Team</h1>
-    </div>
-    <div class="col-2" style="text-align: center;">
-        <select>
-            <option selected>
-                ${user.fullName}
-            </option>
-            <option>
-                <a href="/expenditure?action=logout">
-                    <button style="background-color: white;width: auto">Đăng xuất</button>
-                </a>
-            </option>
-        </select>
-    </div>
+    <table style="border: none; width: 100%">
+        <tr style="margin-bottom: 2px">
+            <td style="text-align: left;border: none;">
+                <h1 style="font-size: 50px;color: white">Tài Chính Team</h1>
+            </td>
+            <td style="text-align: right;border: none;">
+                <div style="text-align: right; padding-bottom: 2%">
+                    <p style="color: white;font-size: 15px">${user.fullName}</p>
+                    <a href="/expenditure?action=logout" style="color: white;font-size: 15px">
+                        Đăng xuất
+                    </a>
+                </div>
+            </td>
+        </tr>
+    </table>
 </header>
 
 <section class="row">
