@@ -28,7 +28,7 @@
                 ${user.fullName}
             </option>
             <option>
-                <a href="/expenditure?action=logout">
+                <a href="/revenue?action=logout">
                     <button style="background-color: white;width: auto">Đăng xuất</button>
                 </a>
             </option>
@@ -39,8 +39,12 @@
 <section class="row">
     <div class="col-12">
         <div>
-            <a href="/expenditure?action="><button type="button" class="col-6 col-m-6" style="background-color: white">Chi</button></a>
-            <a href="/revenue?action="><button type="button" class="col-6 col-m-6">Thu</button></a>
+            <a href="/expenditure?action=">
+                <button type="button" class="col-6 col-m-6">Chi</button>
+            </a>
+            <a href="/revenue?action=">
+                <button type="button" class="col-6 col-m-6" style="background-color: white">Thu</button>
+            </a>
         </div>
         <div id="menu" style="width: 70%;height: 30px;background: none;border: none;">
             <ul>
@@ -57,7 +61,7 @@
         <div style="width: 70%;height: 0;background: none;border: none;float: left;clear: both">
         </div>
         <div>
-            <form class="row" id="formmoney" action="/expenditure?action=money" method="post" style="display: none">
+            <form class="row" id="formmoney" action="/revenue?action=money" method="post" style="display: none">
                 <table>
                     <tr>
                         <td>
@@ -80,7 +84,7 @@
                     </tr>
                 </table>
             </form>
-            <form class="row" id="formday" action="/expenditure?action=day" method="post" style="display: none">
+            <form class="row" id="formday" action="/revenue?action=day" method="post" style="display: none">
                 <table>
                     <tr>
                         <td>
@@ -97,7 +101,7 @@
                     </tr>
                 </table>
             </form>
-            <form class="row" id="formweek" action="/expenditure?action=week" method="post" style="display: none;">
+            <form class="row" id="formweek" action="/revenue?action=week" method="post" style="display: none;">
                 <table>
                     <tr>
                         <td>
@@ -114,7 +118,7 @@
                     </tr>
                 </table>
             </form>
-            <form class="row" id="formmonth" action="/expenditure?action=month" method="post" style="display: none;">
+            <form class="row" id="formmonth" action="/revenue?action=month" method="post" style="display: none;">
                 <table>
                     <tr>
                         <td>
@@ -144,7 +148,7 @@
                         <th>Sửa</th>
                     </tr>
 
-                    <c:forEach items="${listEx}" var="re">
+                    <c:forEach items="${listRe}" var="re">
                         <tr>
                             <td>${re.date}</td>
                             <td><img width="35px" height="35px" src="${re.category.linkIcon}"></td>
@@ -153,7 +157,7 @@
                             <td>${re.note}</td>
                             <td>
                                 <c:if test="${re.date.equals(dateNow)}">
-                                    <a href="/expenditure?action=editexp&idexp=${re.id}">
+                                    <a href="/revenue?action=editre&idre=${re.id}">
                                         <button>Sửa</button>
                                     </a>
                                 </c:if>
@@ -181,7 +185,7 @@
                         <th>Danh mục</th>
                         <th>Tên danh mục</th>
                     </tr>
-                    <c:forEach items="${listCategory}" var="cate">
+                    <c:forEach items="${listCategoryRe}" var="cate">
                         <tr>
                             <td><img width="50px" height="50px" src="${cate.linkIcon}"/></td>
                             <td>${cate.name}</td>
@@ -189,7 +193,7 @@
                         </tr>
                     </c:forEach>
                     <tr>
-                        <td colspan="2"><a href="/expenditure?action=addCate">
+                        <td colspan="2"><a href="/revenue?action=addCate">
                             <button>Thêm danh mục</button>
                         </a></td>
                     </tr>
@@ -197,60 +201,10 @@
                 </table>
 
             </div>
-            <div class="col-6">
-                <table style="width: 100%">
-                    <tr>
-                        <th>Hạn mức</th>
-                        <th>Số tiền</th>
-                        <th>Sửa</th>
-                    </tr>
-
-                    <tr>
-                        <td style="background-color: lawngreen">Hạn mức ngày</td>
-                        <th>${limited.limitDay}</th>
-                        <td>
-                            <button id="openeditday">Edit</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="background-color: lawngreen">Hạn mức tháng</td>
-                        <th>${limited.limitMonth}</th>
-                        <td>
-                            <button id="openeditmonth">Edit</button>
-                        </td>
-                    </tr>
-                </table>
-                <c:if test="${message!=''}">
-                    <p style="color: #cc3333">${message}</p>
-                </c:if>
-                <form id="editmonth" action="/expenditure?action=editmonth&id=${limited.id}" method="post"
-                      style="display: none">
-                    <table>
-                        <tr>
-                            <td><input name="limitmonth" type="number" value="${limited.limitMonth}"></td>
-                            <td>
-                                <button class="close" type="submit">Ok</button>
-                            </td>
-                        </tr>
-                    </table>
-
-                </form>
-                <form id="editday" action="/expenditure?action=editday&id=${limited.id}" method="post"
-                      style="display: none">
-                    <table>
-                        <tr>
-                            <td><input name="limitday" type="number" value="${limited.limitDay}"></td>
-                            <td>
-                                <button class="close" type="submit">Ok</button>
-                            </td>
-                        </tr>
-                    </table>
-                </form>
-            </div>
             <div class="col-12">
                 <div class="col-6">
-                    <a href="/expenditure?action=addexp">
-                        <button type="button" class="col-6">Thêm khoản chi</button>
+                    <a href="/revenue?action=addre">
+                        <button type="button" class="col-6">Thêm khoản thu</button>
                     </a>
                 </div>
             </div>

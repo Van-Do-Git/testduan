@@ -22,7 +22,7 @@ public class RevenueService implements IRenExpService<Revenue>{
             "VALUE (?,?,?,?)";
 
     private static final String UPDATE_REVENUE_BY_ID = "UPDATE revenue " +
-            "SET date_re= ?, money_re= ?, note= ?, id_rc= ?, WHERE id_re=?";
+            "SET date_re= ?, money_re= ?, note= ?, id_rc= ? WHERE id_re=?";
 
     private static final String DELETE_REVENUE_BY_ID = "DELETE FROM revenue WHERE id_re=?";
 

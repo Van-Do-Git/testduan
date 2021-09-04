@@ -59,8 +59,10 @@ public class ExpenditureServlet extends HttpServlet {
     }
 
     private void showFormAddCategory(HttpServletRequest request, HttpServletResponse response) {
+        String type = "exp";
         List<Icon> iconList = iconService.findAll();
         request.setAttribute("icon", iconList);
+        request.setAttribute("type", type);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/addcate.jsp");
         try {
             dispatcher.forward(request, response);
@@ -130,6 +132,11 @@ public class ExpenditureServlet extends HttpServlet {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         List<Expenditure> listMoney = expenditureService.findByMoney(min, max, user.getId());
+        int totalMoney = 0;
+        for (int i = 0; i < listMoney.size(); i++) {
+            totalMoney += listMoney.get(i).getMoney();
+        }
+        request.setAttribute("totalMoney", totalMoney);
         request.setAttribute("listEx", listMoney);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/expenditure.jsp");
         try {
@@ -166,6 +173,11 @@ public class ExpenditureServlet extends HttpServlet {
             e.printStackTrace();
         }
         List<Expenditure> listMonth = expenditureService.findByMonth(date, user.getId());
+        int totalMoney = 0;
+        for (int i = 0; i < listMonth.size(); i++) {
+            totalMoney += listMonth.get(i).getMoney();
+        }
+        request.setAttribute("totalMoney", totalMoney);
         request.setAttribute("listEx", listMonth);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/expenditure.jsp");
         try {
@@ -189,6 +201,11 @@ public class ExpenditureServlet extends HttpServlet {
             e.printStackTrace();
         }
         List<Expenditure> listWeek = expenditureService.findByWeek(date, user.getId());
+        int totalMoney = 0;
+        for (int i = 0; i < listWeek.size(); i++) {
+            totalMoney += listWeek.get(i).getMoney();
+        }
+        request.setAttribute("totalMoney", totalMoney);
         request.setAttribute("listEx", listWeek);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/expenditure.jsp");
         try {
@@ -212,6 +229,11 @@ public class ExpenditureServlet extends HttpServlet {
             e.printStackTrace();
         }
         List<Expenditure> listDay = expenditureService.findByDay(date, user.getId());
+        int totalMoney = 0;
+        for (int i = 0; i < listDay.size(); i++) {
+            totalMoney += listDay.get(i).getMoney();
+        }
+        request.setAttribute("totalMoney", totalMoney);
         request.setAttribute("listEx", listDay);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/expenditure.jsp");
         try {
@@ -296,7 +318,7 @@ public class ExpenditureServlet extends HttpServlet {
         request.setAttribute("message", message);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/expenditure?action=");
         try {
-            dispatcher.forward(request,response);
+            dispatcher.forward(request, response);
         } catch (ServletException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -324,6 +346,11 @@ public class ExpenditureServlet extends HttpServlet {
         List<Expenditure> listMonth = expenditureService.findByMonth(date, user.getId());
         List<Category> listCategory = categoryExService.findByIdUser(user.getId());
         Limited limited = limitedService.findByIdUser(user.getId());
+        int totalMoney = 0;
+        for (int i = 0; i < listMonth.size(); i++) {
+            totalMoney += listMonth.get(i).getMoney();
+        }
+        request.setAttribute("totalMoney", totalMoney);
         request.setAttribute("listEx", listMonth);
         session.setAttribute("listCategory", listCategory);
         session.setAttribute("limited", limited);

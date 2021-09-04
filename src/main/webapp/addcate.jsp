@@ -30,27 +30,52 @@
 </header>
 
 <section class="row">
-    <form action="/expenditure?action=addCate" method="post" class="col-4">
-        <table>
-            <tr>
-                <td>
-                    <label>Tên danh mục</label>
-                    <input name="nameCate" type="text"/>
-                </td>
-                <td>
-                    <button type="submit">Thêm mới</button>
-                </td>
-            </tr>
-            <c:forEach items="${icon}" var="icon">
+    <c:if test="${type.equals('exp')}">
+        <form action="/expenditure?action=addCate" method="post" class="col-4">
+            <table>
                 <tr>
                     <td>
-                        <img width="50px" height="50px" src="${icon.linkIcon}"/>
-                        <input type="radio" name="idIcon" value="${icon.id}">
+                        <label>Tên danh mục</label>
+                        <input name="nameCate" type="text"/>
+                    </td>
+                    <td>
+                        <button type="submit">Thêm mới</button>
                     </td>
                 </tr>
-            </c:forEach>
-        </table>
-    </form>
+                <c:forEach items="${icon}" var="icon">
+                    <tr>
+                        <td>
+                            <img width="50px" height="50px" src="${icon.linkIcon}"/>
+                            <input type="radio" name="idIcon" value="${icon.id}">
+                        </td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </form>
+    </c:if>
+    <c:if test="${type.equals('re')}">
+        <form action="/revenue?action=addCate" method="post" class="col-4">
+            <table>
+                <tr>
+                    <td>
+                        <label>Tên danh mục:</label>
+                        <input name="nameCate" type="text"/>
+                    </td>
+                    <td>
+                        <button type="submit">Thêm mới</button>
+                    </td>
+                </tr>
+                <c:forEach items="${icon}" var="icon">
+                    <tr>
+                        <td>
+                            <img width="50px" height="50px" src="${icon.linkIcon}"/>
+                            <input type="radio" name="idIcon" value="${icon.id}">
+                        </td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </form>
+    </c:if>
 </section>
 <div class="row">
     <footer>

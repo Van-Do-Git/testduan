@@ -12,6 +12,13 @@ public class Revenue {
     public Revenue() {
     }
 
+    public Revenue(Category category, Date date, int money, String note) {
+        this.category = category;
+        this.date = date;
+        this.money = money;
+        this.note = note;
+    }
+
     public Revenue(int id, Category category, Date date, int money, String note) {
         this.id = id;
         this.category = category;

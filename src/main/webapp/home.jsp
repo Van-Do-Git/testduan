@@ -17,7 +17,7 @@
         }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
-    <link rel="stylesheet" href="style.css">
+<%--    <link rel="stylesheet" href="style.css">--%>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -129,37 +129,36 @@
     <h1 style="float: left" class="col-8">LogoPage</h1>
 </header>
 
-<section>
-    <div class="row">
-        <button type="button" class="col-6 col-m-6">Thu</button>
-        <button type="button" class="col-6 col-m-6">Chi</button>
-    </div>
+<section class="row">
+    <div class="col-12">
+        <div >
+            <button type="button" class="col-6 col-m-6">Thu</button>
+            <button type="button" class="col-6 col-m-6">Chi</button>
+        </div>
 
-    <div id="menu" class="row">
-        <ul class="col-12">
-            <li><a href="#">Chi Tiết</a>
-                <ul>
-                    <li><a href="#">Theo ngày</a></li>
-                    <li><a href="#">Theo tuần</a></li>
-                    <li><a href="#">Theo tháng</a></li>
-                </ul>
-            </li>
-            <li><a href="#">Hạn Mức</a>
-                <ul>
-                    <li><a href="#">Theo ngày</a></li>
-                    <li><a href="#">Theo tháng</a></li>
-                </ul>
-            </li>
-        </ul>
-    </div>
+        <div id="menu" >
+            <ul class="col-12">
+                <li><a href="#">Chi Tiết</a>
+                    <ul>
+                        <li><a href="#">Theo ngày</a></li>
+                        <li><a href="#">Theo tuần</a></li>
+                        <li><a href="#">Theo tháng</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Hạn Mức</a>
+                    <ul>
+                        <li><a href="#">Theo ngày</a></li>
+                        <li><a href="#">Theo tháng</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
 
-    <div class="row">
-        <div class="col-12">
-            <div class="col-6">
-                <button type="button" class="col-6">Thêm khoản thu</button>
-            </div>
-            <div class="col-6">
-                <button type="button" class="col-6">Tìm kiếm theo mức thu</button>
+        <div >
+            <div class="col-12">
+                <div class="col-6">
+                    <button type="button" class="col-6">Thêm khoản thu</button>
+                </div>
             </div>
         </div>
     </div>
@@ -167,7 +166,6 @@
 
 <footer class="footer">
     <p>Liên hệ: 18008198.</p>
-    <i style="font-size: 100px;color: #cc3333" class="bi bi-cloudy-fill"></i>
 </footer>
 
 </body>
