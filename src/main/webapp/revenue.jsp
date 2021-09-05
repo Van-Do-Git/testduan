@@ -23,7 +23,7 @@
     <table style="border: none; width: 100%">
         <tr style="margin-bottom: 2px">
             <td style="text-align: left;border: none;">
-                <h1 style="font-size: 50px;color: white">Tài Chính Team</h1>
+                <h1 style="font-size: 2.2em;color: white">Tài Chính Team</h1>
             </td>
             <td style="text-align: right;border: none;">
                 <div style="text-align: right; padding-bottom: 2%">
@@ -175,7 +175,11 @@
                         </th>
                     </tr>
                 </table>
-
+                <div class="col-6">
+                    <a href="/revenue?action=addre">
+                        <button type="button" class="col-6">Thêm khoản thu</button>
+                    </a>
+                </div>
             </div>
 
         </div>
@@ -201,71 +205,21 @@
                 </table>
 
             </div>
-            <div style="background-color: chocolate" class="col-6">
-                <canvas id="myChart" style="width:50%;max-width:500px"></canvas>
+            <div class="col-6" style="background-color: white">
                 <button type="button" onclick="ve();">Xem biểu đồ</button>
-
-                <script>
-                    function ve() {
-                        var xValues = [];
-                        var yValues = [];
-                        var size = document.getElementById("size").value;
-                        for (let i = 0; i < size; i++) {
-                            xValues.push(document.getElementById(i + "k").value);
-                            yValues.push(document.getElementById(i + "v").value);
-                        }
-                        var barColors = [
-                            "#b91d47",
-                            "#00aba9",
-                            "#2b5797",
-                            "#a49e9e",
-                            "#458463",
-                            "#a93b75",
-                            "#ff020d",
-                            "#00ff77",
-                            "#ffd400",
-                            "#c528f6",
-                            "#000000",
-                            "#22ff00",
-                            "#ffffff"
-                        ];
-
-
-                        new Chart("myChart", {
-                            type: "pie",
-                            data: {
-                                labels: xValues,
-                                datasets: [{
-                                    backgroundColor: barColors,
-                                    data: yValues,
-                                }]
-                            },
-                            options: {
-                                title: {
-                                    display: true,
-                                    text: "Biểu đồ thu chi cá nhân"
-                                }
-                            }
-                        });
-                    }
-                </script>
-            </div>
-            <div class="col-12">
-                <div class="col-6">
-                    <a href="/revenue?action=addre">
-                        <button type="button" class="col-6">Thêm khoản thu</button>
-                    </a>
-                </div>
+                <canvas id="myChart" style="width:100%;max-width:450px; color: black"></canvas>
             </div>
         </div>
     </div>
 </section>
 <div style="display: none">
-    <c:forEach items="${map}" var="map" varStatus="count">
-        <input id="${count.index}v" value="${map.value}" type="number">
-        <input id="${count.index}k" value="${map.key}" type="text">
-    </c:forEach>
-    <input id="size" value="${size}">
+    <c:if test="${map!=null}">
+        <c:forEach items="${map}" var="map" varStatus="count">
+            <input id="${count.index}v" value="${map.value}" type="number">
+            <input id="${count.index}k" value="${map.key}" type="text">
+        </c:forEach>
+        <input id="size" value="${size}">
+    </c:if>
 </div>
 
 <div class="row">
@@ -273,6 +227,6 @@
         <p>Liên hệ: 18008198.</p>
     </footer>
 </div>
-<script type="text/javascript" src="/formInputDate.js"></script>
+<script type="text/javascript" src="/ModalAndChar.js"></script>
 </body>
 </html>

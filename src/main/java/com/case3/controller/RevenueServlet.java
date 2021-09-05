@@ -261,6 +261,7 @@ public class RevenueServlet extends HttpServlet {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         List<Revenue> listMoney = revenueService.findByMoney(min, max, user.getId());
+        request.setAttribute("map", null);
         request.setAttribute("listRe", listMoney);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/revenue.jsp");
         try {

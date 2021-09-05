@@ -22,7 +22,7 @@
     <table style="border: none; width: 100%">
         <tr style="margin-bottom: 2px">
             <td style="text-align: left;border: none;">
-                <h1 style="font-size: 50px;color: white">Tài Chính Team</h1>
+                <h1 style="font-size: 2.2em;color: white">Tài Chính Team</h1>
             </td>
             <td style="text-align: right;border: none;">
                 <div style="text-align: right; padding-bottom: 2%">
@@ -70,6 +70,6 @@
         <p>Liên hệ: 18008198.</p>
     </footer>
 </div>
-<script type="text/javascript" src="/formInputDate.js"></script>
+<script type="text/javascript" src="/ModalAndChar.js"></script>
 </body>
 </html>

@@ -16,13 +16,14 @@
     <LINK REL="SHORTCUT ICON" HREF="/iconweb.ico">
     <title>Quản lý tài chính</title>
 </head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 <body>
 
 <header class="row">
     <table style="border: none; width: 100%">
         <tr style="margin-bottom: 2px">
             <td style="text-align: left;border: none;">
-                <h1 style="font-size: 50px;color: white">Tài Chính Team</h1>
+                <h1 style="font-size: 2.2em;color: white">Tài Chính Team</h1>
             </td>
             <td style="text-align: right;border: none;">
                 <div style="text-align: right; padding-bottom: 2%">
@@ -39,8 +40,12 @@
 <section class="row">
     <div class="col-12">
         <div>
-            <a href="/expenditure?action="><button type="button" class="col-6 col-m-6" style="background-color: white">Chi</button></a>
-            <a href="/revenue?action="><button type="button" class="col-6 col-m-6">Thu</button></a>
+            <a href="/expenditure?action=">
+                <button type="button" class="col-6 col-m-6" style="background-color: white">Chi</button>
+            </a>
+            <a href="/revenue?action=">
+                <button type="button" class="col-6 col-m-6">Thu</button>
+            </a>
         </div>
         <div id="menu" style="width: 70%;height: 30px;background: none;border: none;">
             <ul>
@@ -170,7 +175,24 @@
                         </th>
                     </tr>
                 </table>
-
+                <div class="col-6">
+                    <a href="/expenditure?action=addexp">
+                        <button type="button" class="col-6">Thêm khoản chi</button>
+                    </a>
+                </div>
+                <div class="col-6">
+                    <button type="button" onclick="ve();">Xem biểu đồ</button>
+                    <canvas id="myChart" style="width:100%;max-width:450px; color: black"></canvas>
+                </div>
+                <div style="display: none">
+                    <c:if test="${map!=null}">
+                        <c:forEach items="${map}" var="map" varStatus="count">
+                            <input id="${count.index}v" value="${map.value}" type="number">
+                            <input id="${count.index}k" value="${map.key}" type="text">
+                        </c:forEach>
+                        <input id="size" value="${size}">
+                    </c:if>
+                </div>
             </div>
 
         </div>
@@ -247,13 +269,7 @@
                     </table>
                 </form>
             </div>
-            <div class="col-12">
-                <div class="col-6">
-                    <a href="/expenditure?action=addexp">
-                        <button type="button" class="col-6">Thêm khoản chi</button>
-                    </a>
-                </div>
-            </div>
+
         </div>
     </div>
 </section>
@@ -262,6 +278,6 @@
         <p>Liên hệ: 18008198.</p>
     </footer>
 </div>
-<script type="text/javascript" src="/formInputDate.js"></script>
+<script type="text/javascript" src="/ModalAndChar.js"></script>
 </body>
 </html>

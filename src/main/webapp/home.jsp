@@ -126,10 +126,10 @@
     </c:if>
 </header>
 <header class="row">
-    <h1 style="float: left" class="col-8">LogoPage</h1>
+    <h1 style="float: left; font-size: 2.2em" class="col-8">Team Tài Chính</h1>
 </header>
 
-<section class="row">
+<section class="row" style="height: 60%">
     <div class="col-12">
         <div >
             <button type="button" class="col-6 col-m-6">Thu</button>

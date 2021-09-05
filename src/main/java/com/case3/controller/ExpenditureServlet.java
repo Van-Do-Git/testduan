@@ -18,6 +18,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet(name = "ExpenditureServlet", value = "/expenditure")
 public class ExpenditureServlet extends HttpServlet {
@@ -136,6 +137,7 @@ public class ExpenditureServlet extends HttpServlet {
         for (int i = 0; i < listMoney.size(); i++) {
             totalMoney += listMoney.get(i).getMoney();
         }
+        request.setAttribute("map",null);
         request.setAttribute("totalMoney", totalMoney);
         request.setAttribute("listEx", listMoney);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/expenditure.jsp");
@@ -177,6 +179,10 @@ public class ExpenditureServlet extends HttpServlet {
         for (int i = 0; i < listMonth.size(); i++) {
             totalMoney += listMonth.get(i).getMoney();
         }
+        Map<String, Integer> map = expenditureService.sumMoneyOfCategoryByMonth(user.getId(), date);
+        int size = map.size();
+        request.setAttribute("map", map);
+        request.setAttribute("size", size);
         request.setAttribute("totalMoney", totalMoney);
         request.setAttribute("listEx", listMonth);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/expenditure.jsp");
@@ -205,6 +211,10 @@ public class ExpenditureServlet extends HttpServlet {
         for (int i = 0; i < listWeek.size(); i++) {
             totalMoney += listWeek.get(i).getMoney();
         }
+        Map<String, Integer> map = expenditureService.sumMoneyOfCategoryByWeek(user.getId(), date);
+        int size = map.size();
+        request.setAttribute("map", map);
+        request.setAttribute("size", size);
         request.setAttribute("totalMoney", totalMoney);
         request.setAttribute("listEx", listWeek);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/expenditure.jsp");
@@ -233,6 +243,10 @@ public class ExpenditureServlet extends HttpServlet {
         for (int i = 0; i < listDay.size(); i++) {
             totalMoney += listDay.get(i).getMoney();
         }
+        Map<String, Integer> map = expenditureService.sumMoneyOfCategoryByDay(user.getId(), date);
+        int size = map.size();
+        request.setAttribute("map", map);
+        request.setAttribute("size", size);
         request.setAttribute("totalMoney", totalMoney);
         request.setAttribute("listEx", listDay);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/expenditure.jsp");
@@ -341,8 +355,6 @@ public class ExpenditureServlet extends HttpServlet {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         session.setAttribute("dateNow", dateNow);
-
-
         List<Expenditure> listMonth = expenditureService.findByMonth(date, user.getId());
         List<Category> listCategory = categoryExService.findByIdUser(user.getId());
         Limited limited = limitedService.findByIdUser(user.getId());
@@ -350,6 +362,10 @@ public class ExpenditureServlet extends HttpServlet {
         for (int i = 0; i < listMonth.size(); i++) {
             totalMoney += listMonth.get(i).getMoney();
         }
+        Map<String, Integer> map = expenditureService.sumMoneyOfCategoryByMonth(user.getId(), date);
+        int size = map.size();
+        request.setAttribute("map", map);
+        request.setAttribute("size", size);
         request.setAttribute("totalMoney", totalMoney);
         request.setAttribute("listEx", listMonth);
         session.setAttribute("listCategory", listCategory);

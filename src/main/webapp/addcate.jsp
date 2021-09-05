@@ -22,7 +22,7 @@
     <table style="border: none; width: 100%">
         <tr style="margin-bottom: 2px">
             <td style="text-align: left;border: none;">
-                <h1 style="font-size: 50px;color: white">Tài Chính Team</h1>
+                <h1 style="font-size: 2.2em;color: white">Tài Chính Team</h1>
             </td>
             <td style="text-align: right;border: none;">
                 <div style="text-align: right; padding-bottom: 2%">
@@ -38,49 +38,51 @@
 
 <section class="row">
     <c:if test="${type.equals('exp')}">
-        <form action="/expenditure?action=addCate" method="post" class="col-4">
+        <form action="/expenditure?action=addCate" method="post" class="col-6 col-m-6">
             <table>
                 <tr>
+                    <th>ICON Danh Mục</th>
+                    <th>Tên Danh Mục</th>
+                </tr>
+                <tr>
+                    <td style="width: 100%">
+                        <c:forEach items="${icon}" var="icon" varStatus="countTD">
+                            <div style="position: relative; float: left">
+                                <img width="50px" height="50px" src="${icon.linkIcon}"/>
+                                <input type="radio" name="idIcon" value="${icon.id}">
+                            </div>
+                        </c:forEach>
+                    </td>
                     <td>
-                        <label>Tên danh mục</label>
                         <input name="nameCate" type="text"/>
                     </td>
-                    <td>
-                        <button type="submit">Thêm mới</button>
-                    </td>
                 </tr>
-                <c:forEach items="${icon}" var="icon">
-                    <tr>
-                        <td>
-                            <img width="50px" height="50px" src="${icon.linkIcon}"/>
-                            <input type="radio" name="idIcon" value="${icon.id}">
-                        </td>
-                    </tr>
-                </c:forEach>
             </table>
+            <button type="submit">Thêm mới</button>
         </form>
     </c:if>
     <c:if test="${type.equals('re')}">
-        <form action="/revenue?action=addCate" method="post" class="col-4">
+        <form action="/revenue?action=addCate" method="post" class="col-6 col-m-6">
             <table>
                 <tr>
+                    <th>ICON Danh Mục</th>
+                    <th>Tên Danh Mục</th>
+                </tr>
+                <tr>
+                    <td style="width: 100%">
+                        <c:forEach items="${icon}" var="icon" varStatus="countTD">
+                            <div style="position: relative; float: left">
+                                <img width="50px" height="50px" src="${icon.linkIcon}"/>
+                                <input type="radio" name="idIcon" value="${icon.id}">
+                            </div>
+                        </c:forEach>
+                    </td>
                     <td>
-                        <label>Tên danh mục:</label>
                         <input name="nameCate" type="text"/>
                     </td>
-                    <td>
-                        <button type="submit">Thêm mới</button>
-                    </td>
                 </tr>
-                <c:forEach items="${icon}" var="icon">
-                    <tr>
-                        <td>
-                            <img width="50px" height="50px" src="${icon.linkIcon}"/>
-                            <input type="radio" name="idIcon" value="${icon.id}">
-                        </td>
-                    </tr>
-                </c:forEach>
             </table>
+            <button type="submit">Thêm mới</button>
         </form>
     </c:if>
 </section>
@@ -89,6 +91,6 @@
         <p>Liên hệ: 18008198.</p>
     </footer>
 </div>
-<script type="text/javascript" src="/formInputDate.js"></script>
+<script type="text/javascript" src="/ModalAndChar.js"></script>
 </body>
 </html>

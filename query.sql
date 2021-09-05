@@ -111,6 +111,29 @@ from users
 where username = ?
   and password = ?;
 
-select * from role join users on role.id_role = users.id_role;
+select *
+from role
+         join users on role.id_role = users.id_role;
 
-update users set status = ? where id_user = ?;
+update users
+set status = ?
+where id_user = ?;
+
+# select eC.name_ec,sum(e.money_ex)\n" +
+#                     "from expenditure e join expenditure_Categories eC on eC.id_rc = e.id_rc\n" +
+#                     "where rC.id_user = ? and e.date_ex=?\n" +
+#                     "group by rC.name_rc";;
+
+select name_ec, sum(money_ex)
+from expenditure
+         join expenditure_Categories on expenditure.id_ec = expenditure_Categories.id_ec
+where id_user = ?
+  and date_ex = ?
+group by name_ec;
+
+SELECT eC.name_ec, sum(money_ex)
+                    FROM expenditure e JOIN expenditure_Categories eC ON eC.id_ec = e.id_ec
+                    WHERE id_user = 12 AND month(date_ex)=month(?)
+                    GROUP BY eC.name_ec;
+
+
